@@ -1,13 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-    <!-- https://classroom.github.com/a/mOiiFMDY -->
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>book-archive</title>
+    <!-- bootstrap file -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
+      crossorigin="anonymous"
+    />
+    <style>
+      .book-img {
+        max-height: 330px;
+        object-fit: contain;
+      }
+      #loader{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        /* transform: translate(-50%,-50%); */
+        display: none;
+        z-index: 11111111;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- spinner -->
+    <div class="spinner-border" id="loader" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <!--  -->
+    <div class="container">
+      <div class="input-group mb-3 mt-5">
+        <!-- input field -->
+        <input
+          type="text"
+          class="form-control"
+          id="search-input"
+          placeholder="Search Your Favourite Book"
+          aria-label="Recipient's username"
+          aria-describedby="search-btn"
+        />
+        <button
+          class="btn btn-outline-secondary"
+          type="button"
+          id="search-btn"
+          onclick="searchBook()"
+        >
+          search
+        </button>
+      </div>
+      <!-- display search quantity -->
+      <h5 id="searchQuantity" class="p-2"></h5>
+      <!-- display error -->
+      <h3 id="displayError" class="p-3 bg-danger bg-gradient text-center d-none"></h3>
+      <!-- display search result -->
+      <div class="row mt-5 g-4" id="show-result"></div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
 </html>
