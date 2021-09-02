@@ -29,7 +29,6 @@ const searchBook = () => {
                 else {
                     displayError.innerHTML = `Something went wrong please try again later`;
                     loader.style.display = 'none'
-
                 }
             })
     }
@@ -46,7 +45,7 @@ const displayBook = (data) => {
         displayError.innerHTML = `Please enter a valid book name`;
         displayError.classList.remove('d-none')
     }
-    const allData = data.slice(0, 20)
+    const allData = data.slice(0, 30)
     allData.forEach(book => {
         const coverImg = book.cover_i;
         const div = document.createElement("div");
@@ -56,7 +55,7 @@ const displayBook = (data) => {
         <div class="card h-100" >
         <img src="https://covers.openlibrary.org/b/id/${coverImg}-M.jpg" class="card-img-top book-img" alt="...">
         <div class="card-body">
-        <h5 class="card-title">Tittle : ${book.title}</h5>
+        <h5 class="card-title">Tittle : ${book.title[0] ? book.title : 'No title found!'}</h5>
         <h6 class="card-subtitle mb-2 text-muted">Author : ${book.author_name ? book.author_name[0] : 'Unknown author'}</h6>
         <h6 class="card-subtitle mb-2 text-muted">First Publish Year : ${book.first_publish_year}</h6>
         </div>
