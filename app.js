@@ -16,7 +16,7 @@ const searchBook = () => {
         searchInput.value = '';
         searchQuantityDisplay.innerHTML = ''
         loader.style.display = 'block'
-        const url = ` http://openlibrary.org/search.json?q=${searchText}`;
+        const url = ` https://openlibrary.org/search.json?q=${searchText}`;
         fetch(url)
             .then(res => res.json())
             .then(data => {
@@ -77,7 +77,7 @@ const displayBook = (data) => {
 const showError = (err) => {
     console.log(err)
     displayError.innerHTML = `Something went wrong please try again later`;
-    //    displayResult.textContent = '';
-    //    searchQuantityDisplay.innerHTML = '';
-    //    loader.style.display = none;
+       displayResult.textContent = '';
+       searchQuantityDisplay.innerHTML = '';
+       loader.style.display = none;
 }
