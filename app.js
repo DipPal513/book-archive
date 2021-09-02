@@ -4,13 +4,16 @@ const displayResult = document.getElementById('show-result')
 const searchQuantityDisplay = document.getElementById('searchQuantity');
 const displayError = document.getElementById('displayError');
 const loader = document.getElementById('loader');
+let storeBooks = [];
 // search book
 const searchBook = () => {
     const searchText = searchInput.value;
 
     if (searchInput.value === '') {
         displayResult.textContent = '';
-        searchQuantityDisplay.innerHTML = `Input cannot be empty!`
+        displayError.innerHTML = `Input cannot be empty!`
+        displayError.classList.remove('d-none')
+        searchQuantityDisplay.textContent = ''
     }
     else if (searchInput.value.length > 0) {
         searchInput.value = '';
@@ -21,20 +24,20 @@ const searchBook = () => {
             .then(res => res.json())
             .then(data => {
                 if (data) {
-                    displayBook(data)
+                    displayBook(data.docs)
                 }
                 else {
                     displayError.innerHTML = `Something went wrong please try again later`;
-                    console.log('data not found')
+                    loader.style.display = 'none'
+
                 }
             })
-            .catch(err => showError(err))
     }
 }
 
 // display book
-
 const displayBook = (data) => {
+    storeBooks.length = 0;
     loader.style.display = 'none'
     displayResult.textContent = '';
     displayError.classList.add('d-none')
@@ -43,10 +46,9 @@ const displayBook = (data) => {
         displayError.innerHTML = `Please enter a valid book name`;
         displayError.classList.remove('d-none')
     }
-    data.docs.forEach(book => {
+    const allData = data.slice(0, 20)
+    allData.forEach(book => {
         const coverImg = book.cover_i;
-
-
         const div = document.createElement("div");
         div.classList.add('col-lg-4', 'col-md-4', 'col-sm-6')
         div.innerHTML =
@@ -58,26 +60,19 @@ const displayBook = (data) => {
         <h6 class="card-subtitle mb-2 text-muted">Author : ${book.author_name ? book.author_name[0] : 'Unknown author'}</h6>
         <h6 class="card-subtitle mb-2 text-muted">First Publish Year : ${book.first_publish_year}</h6>
         </div>
-      </div>
-        
-        `
-
+        </div> `
         displayResult.appendChild(div)
-        const searchQuantity = displayResult.childElementCount;
-
-        console.log(searchQuantity)
-        searchQuantityDisplay.innerHTML = `About ${searchQuantity} Results Found`;
-        console.log('reached')
-
     })
+    data.forEach(book => {
+        storeBooks.push(book)
+    })
+    if(storeBooks.length < 1){
+        displayError.innerHTML = 'Please enter a valid book name';
+        displayError.classList.remove('d-none')
+    }
+    else{
 
-}
+        searchQuantityDisplay.innerHTML = `About ${storeBooks.length} Results Found`;
+    }
 
-
-const showError = (err) => {
-    console.log(err)
-    displayError.innerHTML = `Something went wrong please try again later`;
-       displayResult.textContent = '';
-       searchQuantityDisplay.innerHTML = '';
-       loader.style.display = none;
 }
